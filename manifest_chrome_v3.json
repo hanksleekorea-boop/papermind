@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "PaperMind AI",
+  "version": "1.10.0",
+  "description": "Layperson Paper Super App - AI Academic Copilot",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "app_live_qr.svg"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "http://localhost:3000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

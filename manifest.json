@@ -1,0 +1,16 @@
+{
+  "name": "PaperMind AI",
+  "short_name": "PaperMind",
+  "description": "Layperson Paper Super App",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a90e2",
+  "icons": [
+    {
+      "src": "/app_live_qr.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
