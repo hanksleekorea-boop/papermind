@@ -1,0 +1,1902 @@
+[
+  {
+    "task_id": "TASK-1-001",
+    "stage": "STAGE-1",
+    "name": "[단계 1 작업 1] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-101",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "없음",
+    "field_08_target_files": [
+      "src/modules/stage01/task01.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage01/task01.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-1-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-1-002"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage01/task01.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-11-1: 케이스 1 정상/경계값 검증",
+      "TEST-11-2: 케이스 2 정상/경계값 검증",
+      "TEST-11-3: 케이스 3 정상/경계값 검증",
+      "TEST-11-4: 케이스 4 정상/경계값 검증",
+      "TEST-11-5: 케이스 5 정상/경계값 검증",
+      "TEST-11-6: 케이스 6 정상/경계값 검증",
+      "TEST-11-7: 케이스 7 정상/경계값 검증",
+      "TEST-11-8: 케이스 8 정상/경계값 검증",
+      "TEST-11-9: 케이스 9 정상/경계값 검증",
+      "TEST-11-10: 케이스 10 정상/경계값 검증",
+      "TEST-11-11: 케이스 11 정상/경계값 검증",
+      "TEST-11-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage01",
+    "field_95_evidence_path": "evidence/task-1-001-evidence.json",
+    "field_96_handoff_statement": "TASK-1-001가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-1-002",
+    "stage": "STAGE-1",
+    "name": "[단계 1 작업 2] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-102",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-1-001",
+    "field_08_target_files": [
+      "src/modules/stage01/task02.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage01/task02.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-1-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-1-003"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage01/task02.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-12-1: 케이스 1 정상/경계값 검증",
+      "TEST-12-2: 케이스 2 정상/경계값 검증",
+      "TEST-12-3: 케이스 3 정상/경계값 검증",
+      "TEST-12-4: 케이스 4 정상/경계값 검증",
+      "TEST-12-5: 케이스 5 정상/경계값 검증",
+      "TEST-12-6: 케이스 6 정상/경계값 검증",
+      "TEST-12-7: 케이스 7 정상/경계값 검증",
+      "TEST-12-8: 케이스 8 정상/경계값 검증",
+      "TEST-12-9: 케이스 9 정상/경계값 검증",
+      "TEST-12-10: 케이스 10 정상/경계값 검증",
+      "TEST-12-11: 케이스 11 정상/경계값 검증",
+      "TEST-12-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage01",
+    "field_95_evidence_path": "evidence/task-1-002-evidence.json",
+    "field_96_handoff_statement": "TASK-1-002가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-1-003",
+    "stage": "STAGE-1",
+    "name": "[단계 1 작업 3] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-103",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-1-002",
+    "field_08_target_files": [
+      "src/modules/stage01/task03.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage01/task03.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-1-002"
+    ],
+    "field_70_successor_ids": [
+      "TASK-1-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage01/task03.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-13-1: 케이스 1 정상/경계값 검증",
+      "TEST-13-2: 케이스 2 정상/경계값 검증",
+      "TEST-13-3: 케이스 3 정상/경계값 검증",
+      "TEST-13-4: 케이스 4 정상/경계값 검증",
+      "TEST-13-5: 케이스 5 정상/경계값 검증",
+      "TEST-13-6: 케이스 6 정상/경계값 검증",
+      "TEST-13-7: 케이스 7 정상/경계값 검증",
+      "TEST-13-8: 케이스 8 정상/경계값 검증",
+      "TEST-13-9: 케이스 9 정상/경계값 검증",
+      "TEST-13-10: 케이스 10 정상/경계값 검증",
+      "TEST-13-11: 케이스 11 정상/경계값 검증",
+      "TEST-13-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage01",
+    "field_95_evidence_path": "evidence/task-1-003-evidence.json",
+    "field_96_handoff_statement": "TASK-1-003가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-1-004",
+    "stage": "STAGE-1",
+    "name": "[단계 1 작업 4] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-104",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-1-003",
+    "field_08_target_files": [
+      "src/modules/stage01/task04.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage01/task04.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-1-003"
+    ],
+    "field_70_successor_ids": [
+      "TASK-1-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage01/task04.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-14-1: 케이스 1 정상/경계값 검증",
+      "TEST-14-2: 케이스 2 정상/경계값 검증",
+      "TEST-14-3: 케이스 3 정상/경계값 검증",
+      "TEST-14-4: 케이스 4 정상/경계값 검증",
+      "TEST-14-5: 케이스 5 정상/경계값 검증",
+      "TEST-14-6: 케이스 6 정상/경계값 검증",
+      "TEST-14-7: 케이스 7 정상/경계값 검증",
+      "TEST-14-8: 케이스 8 정상/경계값 검증",
+      "TEST-14-9: 케이스 9 정상/경계값 검증",
+      "TEST-14-10: 케이스 10 정상/경계값 검증",
+      "TEST-14-11: 케이스 11 정상/경계값 검증",
+      "TEST-14-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage01",
+    "field_95_evidence_path": "evidence/task-1-004-evidence.json",
+    "field_96_handoff_statement": "TASK-1-004가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-2-001",
+    "stage": "STAGE-2",
+    "name": "[단계 2 작업 1] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-201",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-2-001",
+    "field_08_target_files": [
+      "src/modules/stage02/task01.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage02/task01.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-2-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-2-002"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage02/task01.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-21-1: 케이스 1 정상/경계값 검증",
+      "TEST-21-2: 케이스 2 정상/경계값 검증",
+      "TEST-21-3: 케이스 3 정상/경계값 검증",
+      "TEST-21-4: 케이스 4 정상/경계값 검증",
+      "TEST-21-5: 케이스 5 정상/경계값 검증",
+      "TEST-21-6: 케이스 6 정상/경계값 검증",
+      "TEST-21-7: 케이스 7 정상/경계값 검증",
+      "TEST-21-8: 케이스 8 정상/경계값 검증",
+      "TEST-21-9: 케이스 9 정상/경계값 검증",
+      "TEST-21-10: 케이스 10 정상/경계값 검증",
+      "TEST-21-11: 케이스 11 정상/경계값 검증",
+      "TEST-21-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage02",
+    "field_95_evidence_path": "evidence/task-2-001-evidence.json",
+    "field_96_handoff_statement": "TASK-2-001가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-2-002",
+    "stage": "STAGE-2",
+    "name": "[단계 2 작업 2] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-202",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-2-001",
+    "field_08_target_files": [
+      "src/modules/stage02/task02.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage02/task02.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-2-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-2-003"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage02/task02.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-22-1: 케이스 1 정상/경계값 검증",
+      "TEST-22-2: 케이스 2 정상/경계값 검증",
+      "TEST-22-3: 케이스 3 정상/경계값 검증",
+      "TEST-22-4: 케이스 4 정상/경계값 검증",
+      "TEST-22-5: 케이스 5 정상/경계값 검증",
+      "TEST-22-6: 케이스 6 정상/경계값 검증",
+      "TEST-22-7: 케이스 7 정상/경계값 검증",
+      "TEST-22-8: 케이스 8 정상/경계값 검증",
+      "TEST-22-9: 케이스 9 정상/경계값 검증",
+      "TEST-22-10: 케이스 10 정상/경계값 검증",
+      "TEST-22-11: 케이스 11 정상/경계값 검증",
+      "TEST-22-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage02",
+    "field_95_evidence_path": "evidence/task-2-002-evidence.json",
+    "field_96_handoff_statement": "TASK-2-002가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-2-003",
+    "stage": "STAGE-2",
+    "name": "[단계 2 작업 3] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-203",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-2-002",
+    "field_08_target_files": [
+      "src/modules/stage02/task03.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage02/task03.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-2-002"
+    ],
+    "field_70_successor_ids": [
+      "TASK-2-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage02/task03.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-23-1: 케이스 1 정상/경계값 검증",
+      "TEST-23-2: 케이스 2 정상/경계값 검증",
+      "TEST-23-3: 케이스 3 정상/경계값 검증",
+      "TEST-23-4: 케이스 4 정상/경계값 검증",
+      "TEST-23-5: 케이스 5 정상/경계값 검증",
+      "TEST-23-6: 케이스 6 정상/경계값 검증",
+      "TEST-23-7: 케이스 7 정상/경계값 검증",
+      "TEST-23-8: 케이스 8 정상/경계값 검증",
+      "TEST-23-9: 케이스 9 정상/경계값 검증",
+      "TEST-23-10: 케이스 10 정상/경계값 검증",
+      "TEST-23-11: 케이스 11 정상/경계값 검증",
+      "TEST-23-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage02",
+    "field_95_evidence_path": "evidence/task-2-003-evidence.json",
+    "field_96_handoff_statement": "TASK-2-003가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-2-004",
+    "stage": "STAGE-2",
+    "name": "[단계 2 작업 4] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-204",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-2-003",
+    "field_08_target_files": [
+      "src/modules/stage02/task04.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage02/task04.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-2-003"
+    ],
+    "field_70_successor_ids": [
+      "TASK-2-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage02/task04.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-24-1: 케이스 1 정상/경계값 검증",
+      "TEST-24-2: 케이스 2 정상/경계값 검증",
+      "TEST-24-3: 케이스 3 정상/경계값 검증",
+      "TEST-24-4: 케이스 4 정상/경계값 검증",
+      "TEST-24-5: 케이스 5 정상/경계값 검증",
+      "TEST-24-6: 케이스 6 정상/경계값 검증",
+      "TEST-24-7: 케이스 7 정상/경계값 검증",
+      "TEST-24-8: 케이스 8 정상/경계값 검증",
+      "TEST-24-9: 케이스 9 정상/경계값 검증",
+      "TEST-24-10: 케이스 10 정상/경계값 검증",
+      "TEST-24-11: 케이스 11 정상/경계값 검증",
+      "TEST-24-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage02",
+    "field_95_evidence_path": "evidence/task-2-004-evidence.json",
+    "field_96_handoff_statement": "TASK-2-004가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-3-001",
+    "stage": "STAGE-3",
+    "name": "[단계 3 작업 1] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-301",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-3-001",
+    "field_08_target_files": [
+      "src/modules/stage03/task01.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage03/task01.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-3-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-3-002"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage03/task01.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-31-1: 케이스 1 정상/경계값 검증",
+      "TEST-31-2: 케이스 2 정상/경계값 검증",
+      "TEST-31-3: 케이스 3 정상/경계값 검증",
+      "TEST-31-4: 케이스 4 정상/경계값 검증",
+      "TEST-31-5: 케이스 5 정상/경계값 검증",
+      "TEST-31-6: 케이스 6 정상/경계값 검증",
+      "TEST-31-7: 케이스 7 정상/경계값 검증",
+      "TEST-31-8: 케이스 8 정상/경계값 검증",
+      "TEST-31-9: 케이스 9 정상/경계값 검증",
+      "TEST-31-10: 케이스 10 정상/경계값 검증",
+      "TEST-31-11: 케이스 11 정상/경계값 검증",
+      "TEST-31-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage03",
+    "field_95_evidence_path": "evidence/task-3-001-evidence.json",
+    "field_96_handoff_statement": "TASK-3-001가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-3-002",
+    "stage": "STAGE-3",
+    "name": "[단계 3 작업 2] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-302",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-3-001",
+    "field_08_target_files": [
+      "src/modules/stage03/task02.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage03/task02.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-3-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-3-003"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage03/task02.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-32-1: 케이스 1 정상/경계값 검증",
+      "TEST-32-2: 케이스 2 정상/경계값 검증",
+      "TEST-32-3: 케이스 3 정상/경계값 검증",
+      "TEST-32-4: 케이스 4 정상/경계값 검증",
+      "TEST-32-5: 케이스 5 정상/경계값 검증",
+      "TEST-32-6: 케이스 6 정상/경계값 검증",
+      "TEST-32-7: 케이스 7 정상/경계값 검증",
+      "TEST-32-8: 케이스 8 정상/경계값 검증",
+      "TEST-32-9: 케이스 9 정상/경계값 검증",
+      "TEST-32-10: 케이스 10 정상/경계값 검증",
+      "TEST-32-11: 케이스 11 정상/경계값 검증",
+      "TEST-32-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage03",
+    "field_95_evidence_path": "evidence/task-3-002-evidence.json",
+    "field_96_handoff_statement": "TASK-3-002가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-3-003",
+    "stage": "STAGE-3",
+    "name": "[단계 3 작업 3] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-303",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-3-002",
+    "field_08_target_files": [
+      "src/modules/stage03/task03.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage03/task03.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-3-002"
+    ],
+    "field_70_successor_ids": [
+      "TASK-3-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage03/task03.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-33-1: 케이스 1 정상/경계값 검증",
+      "TEST-33-2: 케이스 2 정상/경계값 검증",
+      "TEST-33-3: 케이스 3 정상/경계값 검증",
+      "TEST-33-4: 케이스 4 정상/경계값 검증",
+      "TEST-33-5: 케이스 5 정상/경계값 검증",
+      "TEST-33-6: 케이스 6 정상/경계값 검증",
+      "TEST-33-7: 케이스 7 정상/경계값 검증",
+      "TEST-33-8: 케이스 8 정상/경계값 검증",
+      "TEST-33-9: 케이스 9 정상/경계값 검증",
+      "TEST-33-10: 케이스 10 정상/경계값 검증",
+      "TEST-33-11: 케이스 11 정상/경계값 검증",
+      "TEST-33-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage03",
+    "field_95_evidence_path": "evidence/task-3-003-evidence.json",
+    "field_96_handoff_statement": "TASK-3-003가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-3-004",
+    "stage": "STAGE-3",
+    "name": "[단계 3 작업 4] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-304",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-3-003",
+    "field_08_target_files": [
+      "src/modules/stage03/task04.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage03/task04.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-3-003"
+    ],
+    "field_70_successor_ids": [
+      "TASK-3-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage03/task04.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-34-1: 케이스 1 정상/경계값 검증",
+      "TEST-34-2: 케이스 2 정상/경계값 검증",
+      "TEST-34-3: 케이스 3 정상/경계값 검증",
+      "TEST-34-4: 케이스 4 정상/경계값 검증",
+      "TEST-34-5: 케이스 5 정상/경계값 검증",
+      "TEST-34-6: 케이스 6 정상/경계값 검증",
+      "TEST-34-7: 케이스 7 정상/경계값 검증",
+      "TEST-34-8: 케이스 8 정상/경계값 검증",
+      "TEST-34-9: 케이스 9 정상/경계값 검증",
+      "TEST-34-10: 케이스 10 정상/경계값 검증",
+      "TEST-34-11: 케이스 11 정상/경계값 검증",
+      "TEST-34-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage03",
+    "field_95_evidence_path": "evidence/task-3-004-evidence.json",
+    "field_96_handoff_statement": "TASK-3-004가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-4-001",
+    "stage": "STAGE-4",
+    "name": "[단계 4 작업 1] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-401",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-4-001",
+    "field_08_target_files": [
+      "src/modules/stage04/task01.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage04/task01.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-4-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-4-002"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage04/task01.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-41-1: 케이스 1 정상/경계값 검증",
+      "TEST-41-2: 케이스 2 정상/경계값 검증",
+      "TEST-41-3: 케이스 3 정상/경계값 검증",
+      "TEST-41-4: 케이스 4 정상/경계값 검증",
+      "TEST-41-5: 케이스 5 정상/경계값 검증",
+      "TEST-41-6: 케이스 6 정상/경계값 검증",
+      "TEST-41-7: 케이스 7 정상/경계값 검증",
+      "TEST-41-8: 케이스 8 정상/경계값 검증",
+      "TEST-41-9: 케이스 9 정상/경계값 검증",
+      "TEST-41-10: 케이스 10 정상/경계값 검증",
+      "TEST-41-11: 케이스 11 정상/경계값 검증",
+      "TEST-41-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage04",
+    "field_95_evidence_path": "evidence/task-4-001-evidence.json",
+    "field_96_handoff_statement": "TASK-4-001가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-4-002",
+    "stage": "STAGE-4",
+    "name": "[단계 4 작업 2] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-402",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-4-001",
+    "field_08_target_files": [
+      "src/modules/stage04/task02.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage04/task02.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-4-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-4-003"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage04/task02.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-42-1: 케이스 1 정상/경계값 검증",
+      "TEST-42-2: 케이스 2 정상/경계값 검증",
+      "TEST-42-3: 케이스 3 정상/경계값 검증",
+      "TEST-42-4: 케이스 4 정상/경계값 검증",
+      "TEST-42-5: 케이스 5 정상/경계값 검증",
+      "TEST-42-6: 케이스 6 정상/경계값 검증",
+      "TEST-42-7: 케이스 7 정상/경계값 검증",
+      "TEST-42-8: 케이스 8 정상/경계값 검증",
+      "TEST-42-9: 케이스 9 정상/경계값 검증",
+      "TEST-42-10: 케이스 10 정상/경계값 검증",
+      "TEST-42-11: 케이스 11 정상/경계값 검증",
+      "TEST-42-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage04",
+    "field_95_evidence_path": "evidence/task-4-002-evidence.json",
+    "field_96_handoff_statement": "TASK-4-002가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-4-003",
+    "stage": "STAGE-4",
+    "name": "[단계 4 작업 3] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-403",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-4-002",
+    "field_08_target_files": [
+      "src/modules/stage04/task03.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage04/task03.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-4-002"
+    ],
+    "field_70_successor_ids": [
+      "TASK-4-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage04/task03.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-43-1: 케이스 1 정상/경계값 검증",
+      "TEST-43-2: 케이스 2 정상/경계값 검증",
+      "TEST-43-3: 케이스 3 정상/경계값 검증",
+      "TEST-43-4: 케이스 4 정상/경계값 검증",
+      "TEST-43-5: 케이스 5 정상/경계값 검증",
+      "TEST-43-6: 케이스 6 정상/경계값 검증",
+      "TEST-43-7: 케이스 7 정상/경계값 검증",
+      "TEST-43-8: 케이스 8 정상/경계값 검증",
+      "TEST-43-9: 케이스 9 정상/경계값 검증",
+      "TEST-43-10: 케이스 10 정상/경계값 검증",
+      "TEST-43-11: 케이스 11 정상/경계값 검증",
+      "TEST-43-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage04",
+    "field_95_evidence_path": "evidence/task-4-003-evidence.json",
+    "field_96_handoff_statement": "TASK-4-003가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-4-004",
+    "stage": "STAGE-4",
+    "name": "[단계 4 작업 4] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-404",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-4-003",
+    "field_08_target_files": [
+      "src/modules/stage04/task04.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage04/task04.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-4-003"
+    ],
+    "field_70_successor_ids": [
+      "TASK-4-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage04/task04.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-44-1: 케이스 1 정상/경계값 검증",
+      "TEST-44-2: 케이스 2 정상/경계값 검증",
+      "TEST-44-3: 케이스 3 정상/경계값 검증",
+      "TEST-44-4: 케이스 4 정상/경계값 검증",
+      "TEST-44-5: 케이스 5 정상/경계값 검증",
+      "TEST-44-6: 케이스 6 정상/경계값 검증",
+      "TEST-44-7: 케이스 7 정상/경계값 검증",
+      "TEST-44-8: 케이스 8 정상/경계값 검증",
+      "TEST-44-9: 케이스 9 정상/경계값 검증",
+      "TEST-44-10: 케이스 10 정상/경계값 검증",
+      "TEST-44-11: 케이스 11 정상/경계값 검증",
+      "TEST-44-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage04",
+    "field_95_evidence_path": "evidence/task-4-004-evidence.json",
+    "field_96_handoff_statement": "TASK-4-004가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-5-001",
+    "stage": "STAGE-5",
+    "name": "[단계 5 작업 1] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-501",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-5-001",
+    "field_08_target_files": [
+      "src/modules/stage05/task01.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage05/task01.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-5-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-5-002"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage05/task01.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-51-1: 케이스 1 정상/경계값 검증",
+      "TEST-51-2: 케이스 2 정상/경계값 검증",
+      "TEST-51-3: 케이스 3 정상/경계값 검증",
+      "TEST-51-4: 케이스 4 정상/경계값 검증",
+      "TEST-51-5: 케이스 5 정상/경계값 검증",
+      "TEST-51-6: 케이스 6 정상/경계값 검증",
+      "TEST-51-7: 케이스 7 정상/경계값 검증",
+      "TEST-51-8: 케이스 8 정상/경계값 검증",
+      "TEST-51-9: 케이스 9 정상/경계값 검증",
+      "TEST-51-10: 케이스 10 정상/경계값 검증",
+      "TEST-51-11: 케이스 11 정상/경계값 검증",
+      "TEST-51-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage05",
+    "field_95_evidence_path": "evidence/task-5-001-evidence.json",
+    "field_96_handoff_statement": "TASK-5-001가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-5-002",
+    "stage": "STAGE-5",
+    "name": "[단계 5 작업 2] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-502",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-5-001",
+    "field_08_target_files": [
+      "src/modules/stage05/task02.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage05/task02.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-5-001"
+    ],
+    "field_70_successor_ids": [
+      "TASK-5-003"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage05/task02.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-52-1: 케이스 1 정상/경계값 검증",
+      "TEST-52-2: 케이스 2 정상/경계값 검증",
+      "TEST-52-3: 케이스 3 정상/경계값 검증",
+      "TEST-52-4: 케이스 4 정상/경계값 검증",
+      "TEST-52-5: 케이스 5 정상/경계값 검증",
+      "TEST-52-6: 케이스 6 정상/경계값 검증",
+      "TEST-52-7: 케이스 7 정상/경계값 검증",
+      "TEST-52-8: 케이스 8 정상/경계값 검증",
+      "TEST-52-9: 케이스 9 정상/경계값 검증",
+      "TEST-52-10: 케이스 10 정상/경계값 검증",
+      "TEST-52-11: 케이스 11 정상/경계값 검증",
+      "TEST-52-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage05",
+    "field_95_evidence_path": "evidence/task-5-002-evidence.json",
+    "field_96_handoff_statement": "TASK-5-002가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-5-003",
+    "stage": "STAGE-5",
+    "name": "[단계 5 작업 3] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-503",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-5-002",
+    "field_08_target_files": [
+      "src/modules/stage05/task03.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage05/task03.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-5-002"
+    ],
+    "field_70_successor_ids": [
+      "TASK-5-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage05/task03.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-53-1: 케이스 1 정상/경계값 검증",
+      "TEST-53-2: 케이스 2 정상/경계값 검증",
+      "TEST-53-3: 케이스 3 정상/경계값 검증",
+      "TEST-53-4: 케이스 4 정상/경계값 검증",
+      "TEST-53-5: 케이스 5 정상/경계값 검증",
+      "TEST-53-6: 케이스 6 정상/경계값 검증",
+      "TEST-53-7: 케이스 7 정상/경계값 검증",
+      "TEST-53-8: 케이스 8 정상/경계값 검증",
+      "TEST-53-9: 케이스 9 정상/경계값 검증",
+      "TEST-53-10: 케이스 10 정상/경계값 검증",
+      "TEST-53-11: 케이스 11 정상/경계값 검증",
+      "TEST-53-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage05",
+    "field_95_evidence_path": "evidence/task-5-003-evidence.json",
+    "field_96_handoff_statement": "TASK-5-003가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  },
+  {
+    "task_id": "TASK-5-004",
+    "stage": "STAGE-5",
+    "name": "[단계 5 작업 4] PaperMind 핵심 모듈 구현 및 검증",
+    "field_01_user_outcome": "연구자가 지체 없이 논문의 핵심 정보와 신뢰도를 검증할 수 있는 환경 제공",
+    "field_02_linked_req": "REQ-504",
+    "field_03_current_behavior": "해당 기능 미구현 또는 기본 목업 상태",
+    "field_04_target_behavior": "완전 자동화된 고품질 파이프라인 및 직관적 UI 연동",
+    "field_05_included_scope": "정상 처리, 에러 핸들링, 테스트 케이스 작성",
+    "field_06_excluded_scope": "타 단계 배정 기능 침범 금지",
+    "field_07_prerequisites": "TASK-5-003",
+    "field_08_target_files": [
+      "src/modules/stage05/task04.ts"
+    ],
+    "field_09_preserved_parts": "기존 공통 유틸 및 타입 정의",
+    "field_10_new_files": [
+      "src/modules/stage05/task04.ts"
+    ],
+    "field_11_data_schema": "{ id: string, status: string, result: object, timestamp: number }",
+    "field_12_api_contracts": "GET /api/v1/resource -> 200 OK with payload",
+    "field_13_ui_states": "NORMAL | EMPTY | LOADING | ERROR | RECOVERY",
+    "field_14_accessibility": "WCAG 2.1 AA 포커스링 및 스크린리더 레이블 제공",
+    "field_15_security": "XSS 방지 텍스트 새니타이징 및 입력값 검증",
+    "field_65_easy_explanation": "초보자도 10초 만에 이해할 수 있는 직관적인 한 화면 논문 요약 도구 구현",
+    "field_66_user_scenario_example": "사용자가 30페이지 분량의 의학 논문 PDF를 올렸을 때 3초 안에 핵심 결론 표가 나타나는 상황",
+    "field_67_pre_repro_steps": "파일 업로드 버튼 클릭 시 아무 반응이 없거나 서버 에러 500이 나는 현상 확인",
+    "field_68_post_success_example": "녹색 성공 배지와 함께 1문장 TLDR 및 3대 핵심 기여점 카드가 화면에 깨끗이 나타남",
+    "field_69_predecessor_ids": [
+      "TASK-5-003"
+    ],
+    "field_70_successor_ids": [
+      "TASK-5-004"
+    ],
+    "field_71_backup_files": [
+      "config/default.json"
+    ],
+    "field_72_new_file_paths": [
+      "src/stage05/task04.ts"
+    ],
+    "field_73_modified_file_paths": [
+      "src/index.ts"
+    ],
+    "field_74_forbidden_files": [
+      ".env",
+      "package.json (의존성 무단 추가 금지)"
+    ],
+    "field_75_existing_patterns": "src/utils/logger.ts",
+    "field_76_recommended_approach": "불변 객체 패턴 및 선언적 함수형 파이프라인",
+    "field_77_acceptable_alternatives": "클래스 기반 서비스 레이어",
+    "field_78_forbidden_approaches": "any 타입 남발 및 전역 변수 공유",
+    "field_79_input_boundary_examples": "0바이트 빈 파일, 100MB 초과 대용량 파일, 손상된 PDF",
+    "field_80_expected_outputs": "{ success: true, count: 1 }",
+    "field_81_function_signature": "function processTask(input: TaskInput): Promise<TaskOutput>",
+    "field_82_data_validation": "zod 스키마 기반 런타임 유효성 검사 통과",
+    "field_83_ui_labels": "로딩 중: \"논문을 분석하고 있습니다...\", 성공: \"요약 완료\"",
+    "field_84_role_permissions": "Guest: 일일 5회, Pro: 무제한, Admin: 관리자 콘솔",
+    "field_85_micro_steps": [
+      "STEP-01: 작업 디렉터리 상태 및 파일 백업",
+      "STEP-02: 타입 인터페이스 정의",
+      "STEP-03: 파서 함수 스켈레톤 작성",
+      "STEP-04: 정상 케이스 비즈니스 로직 작성",
+      "STEP-05: 에러 분기 및 예외 처리 추가",
+      "STEP-06: 텍스트 클리닝 유틸리티 연동",
+      "STEP-07: 로컬 단위 테스트 작성",
+      "STEP-08: 단위 테스트 실행 및 통과 확인",
+      "STEP-09: API 라우터에 엔드포인트 바인딩",
+      "STEP-10: 통합 테스트 실행",
+      "STEP-11: 린트 및 타입 체크 검증",
+      "STEP-12: 실행 로그 및 증거 파일 저장"
+    ],
+    "field_86_one_change_per_step": true,
+    "field_87_micro_verification": "각 스텝마다 npx jest --testPathPattern=task 실행",
+    "field_88_command_to_run": "npm test",
+    "field_89_command_success_output": "PASS src/tests/task.test.ts",
+    "field_90_command_fail_action": "실패 스택트레이스 확인 후 해당 라인 단일 수정",
+    "field_91_twelve_tests": [
+      "TEST-54-1: 케이스 1 정상/경계값 검증",
+      "TEST-54-2: 케이스 2 정상/경계값 검증",
+      "TEST-54-3: 케이스 3 정상/경계값 검증",
+      "TEST-54-4: 케이스 4 정상/경계값 검증",
+      "TEST-54-5: 케이스 5 정상/경계값 검증",
+      "TEST-54-6: 케이스 6 정상/경계값 검증",
+      "TEST-54-7: 케이스 7 정상/경계값 검증",
+      "TEST-54-8: 케이스 8 정상/경계값 검증",
+      "TEST-54-9: 케이스 9 정상/경계값 검증",
+      "TEST-54-10: 케이스 10 정상/경계값 검증",
+      "TEST-54-11: 케이스 11 정상/경계값 검증",
+      "TEST-54-12: 케이스 12 정상/경계값 검증"
+    ],
+    "field_92_negative_test": "일부러 손상된 데이터를 주입했을 때 시스템이 죽지 않고 정규 에러 코드를 반환하는지 검증",
+    "field_93_regression_test_scope": "이전 단계 모든 핵심 API 테스트 일괄 재실행",
+    "field_94_rollback_procedure": "git checkout HEAD -- src/stage05",
+    "field_95_evidence_path": "evidence/task-5-004-evidence.json",
+    "field_96_handoff_statement": "TASK-5-004가 100% 완료되었으며 모든 단위/통합 테스트가 통과하여 다음 작업으로 안전하게 인계합니다."
+  }
+]

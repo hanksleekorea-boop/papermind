@@ -1,0 +1,46 @@
+{
+  "schema_version": "crh-run-control/v1",
+  "run_id": "RUN-20260915-122140",
+  "generated_at_utc": "2026-09-15T12:21:40Z",
+  "mode_selected": "DEEP_TOP10_PLAN",
+  "mode_reason": "마스터 v3.3 프롬프트 내 세계 톱 10, 초정밀 비교, 제품기획, 저숙련 AI 5단계 상세개발계획 요청에 따른 포괄적 안전 모드 자동 확정",
+  "active_engines": [
+    "ENGINE_B_DEEP_TOP10_PLAN",
+    "ENGINE_A_500_DOMAIN_COMPETITOR"
+  ],
+  "inactive_engines": [
+    "ENGINE_C_READINESS_HUB_PROJECT_AUDIT"
+  ],
+  "target_project": {
+    "service_name": "PaperMind AI (페이퍼마인드 AI)",
+    "display_name": "PaperMind AI - 학술 논문 다중 종합 및 수식 정밀 해설 코파일럿",
+    "domain_catalog_primary": "269 논문 발견(research discovery)",
+    "domain_catalog_secondary": [
+      "68 AI 검색(AI search)",
+      "75 지식관리(knowledge management)",
+      "449 학술 네트워크(academic network)"
+    ],
+    "project_root": "C:/Users/Admin/.gemini/antigravity/scratch/paper-ai-summarizer",
+    "repo_state": "LOCAL_SCRATCH_INITIALIZED",
+    "public_url_candidate": "https://papermind.scanners.cc"
+  },
+  "engine_statuses": {
+    "ENGINE_A": "COMPLETED_AS_DISCOVERY",
+    "ENGINE_B": "COMPLETED_FULL_X10",
+    "ENGINE_C": "INACTIVE_PLAN_ONLY"
+  },
+  "contract_flags": {
+    "PASTE_AND_RUN": true,
+    "AUTO_START_WITHOUT_CONFIRMATION": true,
+    "LOW_SKILL_AI_FIVE_STAGE_PLAN": true,
+    "PLAN_DETAIL_PROFILE": "EXHAUSTIVE_FRIENDLY_EXECUTABLE",
+    "X10_ONE_SHOT": true,
+    "X10_STATUS": "X10_COMPLETE"
+  },
+  "evidence_summary": {
+    "total_sources": 120,
+    "direct_verified": 75,
+    "official_claims": 35,
+    "independent_verified": 10
+  }
+}

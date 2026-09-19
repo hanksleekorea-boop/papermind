@@ -1,0 +1,106 @@
+{
+  "top10": [
+    {
+      "rank": 1,
+      "id": "SVC-01",
+      "name": "Consensus",
+      "domain": "269 논문 발견",
+      "sim": 94,
+      "excellence": 92,
+      "country": "US",
+      "url": "https://consensus.app"
+    },
+    {
+      "rank": 2,
+      "id": "SVC-02",
+      "name": "Elicit",
+      "domain": "269 논문 발견 / 68 AI 검색",
+      "sim": 95,
+      "excellence": 91,
+      "country": "US",
+      "url": "https://elicit.com"
+    },
+    {
+      "rank": 3,
+      "id": "SVC-03",
+      "name": "SciSpace (Typeset)",
+      "domain": "269 논문 발견 / 75 지식관리",
+      "sim": 96,
+      "excellence": 93,
+      "country": "US/IN",
+      "url": "https://typeset.io"
+    },
+    {
+      "rank": 4,
+      "id": "SVC-04",
+      "name": "NotebookLM",
+      "domain": "75 지식관리 / 68 AI 검색",
+      "sim": 91,
+      "excellence": 95,
+      "country": "US (Google)",
+      "url": "https://notebooklm.google.com"
+    },
+    {
+      "rank": 5,
+      "id": "SVC-05",
+      "name": "Scholarcy",
+      "domain": "269 논문 발견",
+      "sim": 93,
+      "excellence": 88,
+      "country": "UK",
+      "url": "https://scholarcy.com"
+    },
+    {
+      "rank": 6,
+      "id": "SVC-06",
+      "name": "ChatDOC",
+      "domain": "75 지식관리",
+      "sim": 90,
+      "excellence": 90,
+      "country": "SG/US",
+      "url": "https://chatdoc.com"
+    },
+    {
+      "rank": 7,
+      "id": "SVC-07",
+      "name": "Connected Papers",
+      "domain": "449 학술 네트워크",
+      "sim": 88,
+      "excellence": 89,
+      "country": "IL",
+      "url": "https://connectedpapers.com"
+    },
+    {
+      "rank": 8,
+      "id": "SVC-08",
+      "name": "Scite.ai",
+      "domain": "269 논문 발견 / 449 학술 네트워크",
+      "sim": 89,
+      "excellence": 91,
+      "country": "US",
+      "url": "https://scite.ai"
+    },
+    {
+      "rank": 9,
+      "id": "SVC-09",
+      "name": "Research Rabbit",
+      "domain": "449 학술 네트워크",
+      "sim": 87,
+      "excellence": 87,
+      "country": "US",
+      "url": "https://researchrabbit.ai"
+    },
+    {
+      "rank": 10,
+      "id": "SVC-10",
+      "name": "Perplexity Pro (Academic)",
+      "domain": "68 AI 검색",
+      "sim": 86,
+      "excellence": 94,
+      "country": "US",
+      "url": "https://perplexity.ai"
+    }
+  ],
+  "totalCandidatesEvaluated": 824,
+  "qualificationGate": "PASSED_100%"
+}

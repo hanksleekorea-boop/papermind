@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "project": "페이퍼마인드",
+    "timestamp": "2026-09-19T15:04:21.080Z",
+    "version": "v3.3"
+  },
+  "engine_A": {
+    "domain_match": [
+      "PaperMind",
+      "SaaS",
+      "Aggregator"
+    ],
+    "target_audience": "Global Users, Professionals",
+    "key_features": [
+      "자동 번역",
+      "핵심 문장 추출",
+      "참고문헌 포맷팅"
+    ],
+    "market_size_estimate": "$10B+",
+    "core_problem_solved": "복잡한 논문과 리서치를 AI로 요약해 드립니다."
+  }
+}

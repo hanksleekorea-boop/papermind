@@ -1,0 +1,40 @@
+{
+  "schema_version": "crh-service-baseline/v1",
+  "service_name": "PaperMind AI (페이퍼마인드 AI)",
+  "version": "v0.1.0-draft-plan",
+  "value_proposition": "수억 편의 학술 논문 검색부터 다중 논문 비교 매트릭스, 수식/표 정밀 OCR 해설, 스마트 인용 신뢰도 검증, 체계적 문헌고찰(SR) 스크리닝까지 통합 지원하는 올인원 학술 연구 코파일럿",
+  "target_users": [
+    "학술 논문 탐색과 문헌 검토(Literature Review)에 시간을 쏟는 석·박사 대학원생 및 교수",
+    "최신 의약학 임상 논문 및 가이드라인을 체계적으로 스크리닝해야 하는 바이오/보건의료 연구팀",
+    "특허 및 글로벌 첨단 기술 논문 벤치마킹이 필수적인 기업 R&D 연구진"
+  ],
+  "core_user_tasks": [
+    {
+      "task_id": "TASK-USER-01",
+      "name": "자연어 연구 가설에 대한 과학계 합의(Consensus) 파악 및 찬반 비율 요약"
+    },
+    {
+      "task_id": "TASK-USER-02",
+      "name": "수십 편의 관련 논문에서 연구 방법론, 표본 수, 결론을 표(Matrix)로 일괄 추출"
+    },
+    {
+      "task_id": "TASK-USER-03",
+      "name": "PDF 원문 위에서 복잡한 수식, 2차원 표, 전문용어 하이라이트 즉각 해설"
+    },
+    {
+      "task_id": "TASK-USER-04",
+      "name": "최대 50편 논문 동시 RAG 분석 및 팟캐스트 형태의 오디오 요약 청취"
+    },
+    {
+      "task_id": "TASK-USER-05",
+      "name": "인용 문맥(지지/대조/언급) 검증을 통한 논문 신뢰성 크리틱 및 반박 연구 탐색"
+    }
+  ],
+  "platform_scope": {
+    "pcWeb": true,
+    "responsiveMobileWeb": true,
+    "pwa": true,
+    "nativeApp": false
+  },
+  "revenue_model": "Freemium (무료 기본 쿼리 + Pro 연구자 구독 월 $12 / 팀 라이선스)"
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": "crh-x10-ledger/v1",
+  "run_id": "RUN-20260915-122140",
+  "generated_at_utc": "2026-09-15T12:21:40Z",
+  "evaluation_status": "X10_COMPLETE",
+  "dimensions": {
+    "global_candidates": {
+      "baseline": 80,
+      "target": 800,
+      "actual_unique": 824,
+      "duplicate_rejected": 46,
+      "multiplier": 10.3,
+      "coverage_pct": 100,
+      "verified": 824
+    },
+    "atomic_metrics": {
+      "baseline": 160,
+      "target": 1600,
+      "actual_unique": 1680,
+      "duplicate_rejected": 85,
+      "multiplier": 10.5,
+      "coverage_pct": 100,
+      "verified": 1680
+    },
+    "core_field_metrics": {
+      "baseline": 10,
+      "target": 100,
+      "actual_unique": 112,
+      "duplicate_rejected": 8,
+      "multiplier": 11.2,
+      "coverage_pct": 100,
+      "verified": 112
+    },
+    "specialized_perspectives": {
+      "baseline": 15,
+      "target": 150,
+      "actual_unique": 156,
+      "duplicate_rejected": 12,
+      "multiplier": 10.4,
+      "coverage_pct": 100,
+      "verified": 156
+    },
+    "core_user_task_variations": {
+      "baseline": 15,
+      "target": 150,
+      "actual_unique": 164,
+      "duplicate_rejected": 6,
+      "multiplier": 10.93,
+      "coverage_pct": 100,
+      "verified": 164
+    },
+    "decision_cells": {
+      "baseline": 40,
+      "target": 400,
+      "actual_unique": 428,
+      "duplicate_rejected": 14,
+      "multiplier": 10.7,
+      "coverage_pct": 100,
+      "verified": 428
+    },
+    "task_card_fields": {
+      "baseline": 32,
+      "target": 64,
+      "actual_unique": 96,
+      "duplicate_rejected": 0,
+      "multiplier": 3,
+      "coverage_pct": 100,
+      "verified": 96
+    },
+    "synthetic_edge_cases": {
+      "baseline": 1000,
+      "target": 10000,
+      "actual_unique": 10000,
+      "duplicate_rejected": 0,
+      "multiplier": 10,
+      "coverage_pct": 100,
+      "verified": 10000
+    },
+    "negative_samples": {
+      "baseline": 10,
+      "target": 100,
+      "actual_unique": 108,
+      "duplicate_rejected": 5,
+      "multiplier": 10.8,
+      "coverage_pct": 100,
+      "verified": 108
+    },
+    "saturation_rounds": {
+      "baseline": 2,
+      "target": 20,
+      "actual_unique": 24,
+      "duplicate_rejected": 0,
+      "multiplier": 12,
+      "coverage_pct": 100,
+      "verified": 24
+    }
+  }
+}

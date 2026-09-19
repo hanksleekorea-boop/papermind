@@ -1,0 +1,95 @@
+{
+  "gaps": [
+    {
+      "id": "GAP-0001",
+      "priority": "P0",
+      "title": "수식 및 도표 OCR 추출 시 환각 발생 위험",
+      "current": 2.1,
+      "target": 4.8,
+      "diff": 2.7,
+      "action": "ChatDOC식 Crop-and-Cite 원문 사각영역 캡처 대조 검증 모듈 탑재"
+    },
+    {
+      "id": "GAP-0002",
+      "priority": "P0",
+      "title": "출처 각주 누락 및 존재하지 않는 가짜 인용 생성",
+      "current": 2.5,
+      "target": 4.9,
+      "diff": 2.4,
+      "action": "NotebookLM식 엄격 접지(Strict Grounding) 파이프라인 구축"
+    },
+    {
+      "id": "GAP-0003",
+      "priority": "P1",
+      "title": "연구 질문에 대한 과학계 합의 지표(Consensus) 부재",
+      "current": 0,
+      "target": 4.8,
+      "diff": 4.8,
+      "action": "Consensus Meter 알고리즘 및 메타분석/RCT 가중치 부여 로직 구현"
+    },
+    {
+      "id": "GAP-0004",
+      "priority": "P1",
+      "title": "수십 편 논문의 방법론/결과 일괄 비교 매트릭스 부재",
+      "current": 0,
+      "target": 4.7,
+      "diff": 4.7,
+      "action": "Elicit 스타일 데이터 추출 그리드 워크벤치 개발"
+    },
+    {
+      "id": "GAP-0005",
+      "priority": "P1",
+      "title": "PDF 뷰어 내 수식/전문용어 실시간 1:1 드래그 해설 미비",
+      "current": 0,
+      "target": 4.9,
+      "diff": 4.9,
+      "action": "SciSpace형 Copilot 사이드바 및 LaTeX 수식 파서 결합"
+    },
+    {
+      "id": "GAP-0006",
+      "priority": "P2",
+      "title": "인용의 문맥(지지/반박/언급) 분류 기능 부재",
+      "current": 0,
+      "target": 4.8,
+      "diff": 4.8,
+      "action": "Scite.ai 스마트 인용 데이터셋 API 연동 및 문맥 하이라이트"
+    },
+    {
+      "id": "GAP-0007",
+      "priority": "P2",
+      "title": "음성 기반 오디오 팟캐스트 요약 기능 부재",
+      "current": 0,
+      "target": 4.6,
+      "diff": 4.6,
+      "action": "NotebookLM식 2인 AI 호스트 대화형 오디오 요약 생성기(TTS) 탑재"
+    },
+    {
+      "id": "GAP-0008",
+      "priority": "P2",
+      "title": "모바일 반응형 터치 조작 시 PDF 뷰어 확대/축소 불안정",
+      "current": 2.8,
+      "target": 4.5,
+      "diff": 1.7,
+      "action": "모바일 핀치줌 및 가상 렌더링 최적화"
+    },
+    {
+      "id": "GAP-0009",
+      "priority": "P3",
+      "title": "Zotero 및 Mendeley 서지 관리 도구 양방향 동기화 미비",
+      "current": 0,
+      "target": 4.7,
+      "diff": 4.7,
+      "action": "Zotero Web API 양방향 컬렉션 싱크 플러그인 개발"
+    },
+    {
+      "id": "GAP-0010",
+      "priority": "P3",
+      "title": "체계적 문헌고찰을 위한 이중 맹검 스크리닝 도구 부재",
+      "current": 0,
+      "target": 4.6,
+      "diff": 4.6,
+      "action": "Rayyan 스타일 5성급 포함/배제 자동화 판정 모드 추가"
+    }
+  ],
+  "totalCount": 10
+}

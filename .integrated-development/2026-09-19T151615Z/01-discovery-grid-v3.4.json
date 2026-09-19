@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "project": "페이퍼마인드",
+    "timestamp": "2026-09-19T15:16:15.138Z",
+    "version": "v3.4"
+  },
+  "engine_A_general": {
+    "domain_match": [
+      "PaperMind",
+      "SaaS",
+      "Aggregator"
+    ],
+    "target_audience": "Global Users, Professionals",
+    "key_features": [
+      "자동 번역",
+      "핵심 문장 추출",
+      "참고문헌 포맷팅"
+    ]
+  },
+  "engine_B_commercial": {
+    "auth": "Google Login, GitHub OAuth, Email/PW",
+    "pwa": "Manifest, Service Worker, Offline Support",
+    "premium": "Freemium Tier setup"
+  },
+  "engine_C_collaboration": {
+    "shared_storage": "Cloud Sync, Local First",
+    "concurrent_editing": "CRDT, WebSocket sync",
+    "conflict_resolution": "Last-write-wins + manual merge"
+  }
+}
